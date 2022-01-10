@@ -244,7 +244,7 @@ def plot_catorchain_tvl(df, cat_or_chain_string, agg_np):
             tickfont=dict(
                 family='Arial',
                 size=14,
-                color='blue',
+                # color='blue',
             ),
         ),
         legend=dict(
@@ -298,7 +298,7 @@ def plot_catorchain_pergroup(df_users, df_nonusers, catorchain_string):
     fig.add_trace(trace1)
     fig.add_trace(trace2)
 
-    fig['layout'].update(title={'text': 'Breakdown of {}, %'.format(catorchain_string),
+    fig['layout'].update(title={'text': 'Breakdown of {}'.format(catorchain_string),
                    'y':0.9, 'x':0.4,
                    'xanchor': 'center','yanchor': 'top'})
 
@@ -323,10 +323,11 @@ def plot_catorchain_pergroup(df_users, df_nonusers, catorchain_string):
             showline=True,
             showticklabels=True,
             gridcolor='#F4F4F4',
+            ticksuffix='%',
             tickfont=dict(
                 family='Arial',
                 size=14,
-                color='blue',
+                # color='blue',
             ),
         ),
         legend=dict(
