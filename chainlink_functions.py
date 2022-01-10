@@ -301,6 +301,46 @@ def plot_catorchain_pergroup(df_users, df_nonusers, catorchain_string):
     fig['layout'].update(title={'text': 'Breakdown of {}, %'.format(catorchain_string),
                    'y':0.9, 'x':0.4,
                    'xanchor': 'center','yanchor': 'top'})
+
+    fig.update_layout(
+        xaxis=dict(
+            showline=True,
+            showgrid=False,
+            showticklabels=True,
+            linewidth=2,
+            zeroline=True,
+            linecolor='#F4F4F4',
+            ticks='outside',
+            tickfont=dict(
+                family='Arial',
+                size=14,
+                color='rgb(82, 82, 82)',
+            ),
+        ),
+        yaxis=dict(
+            showgrid=True,
+            zeroline=True,
+            showline=True,
+            showticklabels=True,
+            gridcolor='#F4F4F4',
+            tickfont=dict(
+                family='Arial',
+                size=14,
+                color='blue',
+            ),
+        ),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        ),
+        autosize=True,
+
+        plot_bgcolor='white'
+    )
+
     return fig
 
 
