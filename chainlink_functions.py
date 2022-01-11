@@ -261,36 +261,38 @@ def plot_catorchain_tvl(df, cat_or_chain_string, agg_np):
     return fig
 
 
-def get_percentage_per_catorchain(df, catorchain_string):
-    rows_peruser_per_catorchain = df.groupby([catorchain_string,'name']).size()
-    user_per_catorchain = rows_peruser_per_catorchain.reset_index().groupby(catorchain_string).size()
-    total_users = sum(rows_peruser_per_catorchain.reset_index().groupby(catorchain_string).size().values)
-    catorchain_percentage_indf = 100 * user_per_catorchain / total_users
-    
-    # # sanity check
-    # sum((100*ser.reset_index().groupby('category').size() / total_users).values)
-    
-    return catorchain_percentage_indf
+# def get_percentage_per_catorchain(df, catorchain_string):
+#     rows_peruser_per_catorchain = df.groupby([catorchain_string,'name']).size()
+#     user_per_catorchain = rows_peruser_per_catorchain.reset_index().groupby(catorchain_string).size()
+#     total_users = sum(rows_peruser_per_catorchain.reset_index().groupby(catorchain_string).size().values)
+#     catorchain_percentage_indf = 100 * user_per_catorchain / total_users
+#
+#     # # sanity check
+#     # sum((100*ser.reset_index().groupby('category').size() / total_users).values)
+#
+#     return catorchain_percentage_indf
 
 
 
 
 def plot_catorchain_pergroup(df_users, df_nonusers, catorchain_string):
     
-    from chainlink_functions import get_percentage_per_catorchain
+    # from chainlink_functions import get_percentage_per_catorchain
+    # cat_percentage_inusers = get_percentage_per_catorchain(df_users, catorchain_string)
+    # cat_percentage_innonusers = get_percentage_per_catorchain(df_nonusers, catorchain_string)
 
-    cat_percentage_inusers = get_percentage_per_catorchain(df_users, catorchain_string)
-    cat_percentage_innonusers = get_percentage_per_catorchain(df_nonusers, catorchain_string)
-    
+    total_percat_inusers = df_users.groupby(catorchain_string).size()
+    total_percat_innonusers = df_nonusers.groupby(catorchain_string).size()
+
     import plotly.graph_objects as go
     from plotly.subplots import make_subplots
 
-    trace1 = go.Bar(x=cat_percentage_inusers.index,
-                    y=cat_percentage_inusers.values,
+    trace1 = go.Bar(x=total_percat_inusers.index,
+                    y=total_percat_inusers.values,
                     name='Chainlink users')
 
-    trace2 = go.Bar(x=cat_percentage_innonusers.index, 
-                    y=cat_percentage_innonusers.values,
+    trace2 = go.Bar(x=total_percat_innonusers.index,
+                    y=total_percat_innonusers.values,
                     name='Non-Chainlink')
 
     fig = make_subplots(specs=[[{"secondary_y": True}]])
@@ -323,7 +325,7 @@ def plot_catorchain_pergroup(df_users, df_nonusers, catorchain_string):
             showline=True,
             showticklabels=True,
             gridcolor='#F4F4F4',
-            ticksuffix='%',
+            # ticksuffix='%',
             tickfont=dict(
                 family='Arial',
                 size=14,

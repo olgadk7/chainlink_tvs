@@ -127,14 +127,16 @@ app.layout = dbc.Container([
         className='text-center text-primary, mb-3',
         style={"margin-bottom": "30px"})]),
 
-dbc.Row([dcc.Markdown('''
-    Why might we want to look at TVL? Popularized by the DeFi Pulse and the (Concourse Open Community)[https://concourseopen.com/] that developed other DeFi public services as well, TVL used to represent protocol growth and / or value. It gained traction as it captured something most smart contracts and networks in a very intricate system had in common: collateral. 
+    dbc.Row([dcc.Markdown('''
+    Why might we want to look at TVL? Popularized by the DeFi Pulse and the [Concourse Open Community](https://concourseopen.com/) that developed other DeFi public services as well, TVL used to represent protocol growth and / or value. It gained traction as it captured something most smart contracts and networks in a very intricate system had in common: collateral. 
 
-    As yield farming and liquidity mining took off, thanks to opportunities in incentive design, we have to take into account some nuances of TVL calculations if we were to make comparisons using it. For example, a big one is double counting, see [this](https://twitter.com/sikiriki12/status/1295089928901140481?s=20) twitter thread for more info. The other ones are the direction of locking for multichain token migration, and, similarly, “sovereignty” over a native asset of one chain locked on another chain (more on these [here](https://github.com/DefiLlama/DefiLlama-Adapters/pull/60#issuecomment-807045050)).
+    As yield farming and liquidity mining took off thanks to opportunities in incentive design, we have to take into account some nuances of TVL calculations if we were to make comparisons using it. For example, a big one is double counting, see [this](https://twitter.com/sikiriki12/status/1295089928901140481?s=20) twitter thread for more info. The other ones are the direction of locking for multichain token migration, and, similarly, “sovereignty” over a native asset of one chain locked on another chain (more on these [here](https://github.com/DefiLlama/DefiLlama-Adapters/pull/60#issuecomment-807045050)).
 
     DeFi Llama, that is used here, [considers](https://docs.llama.fi/list-your-project/what-to-include-as-tvl) any asset that is held in one of the protocol's contracts can be considered as part of TVL, with two exceptions:
     * Assets on pool2, that is, money that is providing liquidity to an AMM pool where one of the tokens is from the protocol (except on some cases where those assets are performing an active function such as being used as collateral).
-    * Non-crypto assets which are external to the blockchain, such as bonds or fiat currency.  
+    * Non-crypto assets which are external to the blockchain, such as bonds or fiat currency.
+    
+    In case of Chainlink, TVL might serve as a proxy for data feed call volumes a protocol might make.  
     ''', style={"margin-bottom": "50px"})]),
 
     dbc.Row([dcc.Graph(figure=tvl_over_time, style={'height': 550})]),
@@ -142,9 +144,11 @@ dbc.Row([dcc.Markdown('''
     dbc.Row([dcc.Markdown('''
     Looking at the TVL growth, **denominated in USD**, we're seeing a story of success, overall. Chainlink users' slope is less aggressive, and arguably more stable, than the market's. This could be attributed to some combination of quality of adoption and nature of business models (e.g. less speculative), among other reasons. I’ll dip my toes into breaking it down below, but a rigorous causal analysis is needed to speak with certainty about the directionality of the variables' interplay.  Indeed, TVL as the most common metric of DeFi has been criticized as being a measure of willingness to pay out the most **unsustainable yield farming** returns. As a result, some protocols have been experimenting with different pool ownership models. 
 
-    It’s important to note that if we looked at the chart **denominated in ETH**, we would see a more moderate, albeit still a positive, slope. If we were asking ourselves how much of the TVL is due to **increase in deposits** and how much is due to **asset appreciation**, the TVL in ETH would tell us more about the deposits, than appreciation. 
+    Another thing regarding the slope is that it's highly reliant on the price of ETH. If we looked at the chart **denominated in ETH**, we would see a more moderate, albeit still a positive, slope. How much of the TVL is due to **increase in deposits** and how much is due to **asset appreciation**? TVL in ETH would tell us more about the deposits, than appreciation in value.
 
-    Zooming out to the macro level, how many assets deposited and held on among the different **categories** of Chainlink's users' smart contracts?
+    The main take-away from this graph is that the space between the two curves is the **untapped market**.  
+    
+    Let's try to understand a little more what makes up the Chainlink's userbase TVL. Zooming out to the macro level, how many assets deposited and held on among the different **categories** of Chainlink's users' smart contracts?
 
     ''', style={"margin-bottom": "50px"})]),
 
@@ -153,9 +157,9 @@ dbc.Row([dcc.Markdown('''
         dcc.Graph(figure=tvl_cats, style={'height': 550})])]),
 
     dbc.Row([dcc.Markdown('''
-    Among the Chainlink's users, most absolute TVL is generated by those in Lending.
+    Among the Chainlink's users, most absolute TVL is generated by those in Lending. Yield category was gaining traction, but then lost it, and has barely recovered since.  
     
-    Some might argue TVL isn’t really comparable among the different DeFi sectors, or use-cases. For an automated market maker, TVL is the amount of liquidity against which traders can swap, and for a lending and borrowing marketplace, the metric represents the amount of funds available to borrow. Both are useful and can be a good indicator for general adoption. This analyst (argues)[https://cryptobriefing.com/most-popular-metric-tracking-defis-growth-is-critically-flawed-heres-why/], however, that the only cases where TVL depicts growth is for asset aggregators where holders of the aggregator’s native token capture a fee from investors when they exit, so the project’s revenue flow and TVL are directly correlated, and for derivative token holders who are rewarded a fee when more trading volume on the protocol.  
+    Some might argue TVL isn’t really comparable among the different DeFi sectors, or use-cases. For a **lending and borrowing marketplace**, TVL is the amount of funds available to borrow, and for an **automated market maker**, it's the amount of liquidity against which traders can swap. Both are useful and can be a good indicator for general adoption. This analyst [argues](https://cryptobriefing.com/most-popular-metric-tracking-defis-growth-is-critically-flawed-heres-why/), however, that the only cases where TVL depicts growth is for asset **aggregators** where holders of the aggregator’s native token capture a fee from investors when they exit, so the project’s revenue flow and TVL are directly correlated, and for **derivative** token holders who are rewarded a fee when more trading volume on the protocol.  
 
     Let's compare the composition of business categories among Chainlink's users to those in the rest of the market.
     ''', style={"margin-bottom": "50px"})]),
@@ -163,7 +167,7 @@ dbc.Row([dcc.Markdown('''
     dbc.Row(dcc.Graph(figure=cats_pergroup, style={'height': 550})),
 
     dbc.Row([dcc.Markdown('''
-    There is definitely an unbalanced composition of the type of businesses among chainlink users and not. Lending dominates in the former group and DEXs in the latter.
+    There is definitely an unbalanced composition of the type of businesses among chainlink users and non-users. Lending dominates in the former group and DEXs in the latter. This might be becuase the critical piece of data needed for a AMM-type DEX to function is determined by a formula and does not require an oracle? We do however see the Yield category again that could be targeted.    
 
     Zooming out to the blockchain level, how many assets deposited and held on Chainlinks' users' smart contracts across the chains?
     ''', style={"margin-bottom": "50px"})]),
@@ -171,10 +175,21 @@ dbc.Row([dcc.Markdown('''
     dbc.Row(dcc.Graph(figure=tvl_chains, style={'height': 550})),
 
     dbc.Row([dcc.Markdown('''
-    Chainlink's users hold most assets on Ethereum. 
+    Chainlink's users hold most assets on Ethereum, followed by the BSC. What chains could be pursued? 
     ''', style={"margin-bottom": "50px"})]),
 
+    dbc.Row(dcc.Graph(figure=chains_pergroup, style={'height': 550})),
+
+    dbc.Row([dcc.Markdown('''
+    Chainlink is not present at all in some of the biggest chains, including Terra, Solana, Polygon.
+    
+    As next steps, I would get more nuanced with a further break down, for example: 
+    * Get TVL denominated in ETH
+    * Add new data variables and introduce other metrics, such as market cap over TVL
+    * Add functionality to take in user input and produce custom groupings
+    ''', style={"margin-bottom": "50px"})]),
 ])
+
 
 if __name__ == "__main__":
     app.run_server(debug=True, mode='external', host='127.0.0.1')
