@@ -15,46 +15,46 @@ from jupyter_dash import JupyterDash
 from dash import html
 from dash import dcc
 
-# DATA IMPORT
-
-# read in the users to use (and users not to use)
-
-sheet = "1ayLr5tEUzqjdSkR8n9Q_ylirk-QcXBf87xqmaNAcwYg"
-sources_sheet = "Sources"
-
-users_col="List of Chainlink users"
-nonusers_col="List of Users to exclude form the report/analytics"
-
-users_list = get_names_list(sheet_id=sheet, col_name_string=users_col, sheet_name=sources_sheet)
-nonusers_list = get_names_list(sheet_id=sheet, col_name_string=nonusers_col, sheet_name=sources_sheet)
-
-# print("Users list ({}".format(len(users_list)), "items): ", users_list, "\n"*2,
-#       "Non-users list ({}".format(len(nonusers_list)), "items): ", nonusers_list)
-
-# remove duplicates in the non-users list
-nonusers_list = list(set(nonusers_list))
-
-# market is comprised of all chainlink users and non-users
-market = users_list + nonusers_list
-
-# THIS SHOULDN'T BE HARDCODED. WRITE A FUNCTION TO AUTOMATE
-# remove duplicates
-nonusers_list.remove('bunny')
-users_list.remove('armor')
-
-# define market
-market = users_list + nonusers_list
-
-# pull TVL via DeFi Llama
-
-# use custom function to connect to DeFi Llama API
-users_json = get_responses(users_list)
-
-# get non-users (in order to get the market later by adding to 'users')
-nonusers_json = get_responses(nonusers_list)
-
-# non-users, together with users make up the market
-market_json = users_json + nonusers_json
+# # DATA IMPORT
+#
+# # read in the users to use (and users not to use)
+#
+# sheet = "1ayLr5tEUzqjdSkR8n9Q_ylirk-QcXBf87xqmaNAcwYg"
+# sources_sheet = "Sources"
+#
+# users_col="List of Chainlink users"
+# nonusers_col="List of Users to exclude form the report/analytics"
+#
+# users_list = get_names_list(sheet_id=sheet, col_name_string=users_col, sheet_name=sources_sheet)
+# nonusers_list = get_names_list(sheet_id=sheet, col_name_string=nonusers_col, sheet_name=sources_sheet)
+#
+# # print("Users list ({}".format(len(users_list)), "items): ", users_list, "\n"*2,
+# #       "Non-users list ({}".format(len(nonusers_list)), "items): ", nonusers_list)
+#
+# # remove duplicates in the non-users list
+# nonusers_list = list(set(nonusers_list))
+#
+# # market is comprised of all chainlink users and non-users
+# market = users_list + nonusers_list
+#
+# # THIS SHOULDN'T BE HARDCODED. WRITE A FUNCTION TO AUTOMATE
+# # remove duplicates
+# nonusers_list.remove('bunny')
+# users_list.remove('armor')
+#
+# # define market
+# market = users_list + nonusers_list
+#
+# # pull TVL via DeFi Llama
+#
+# # use custom function to connect to DeFi Llama API
+# users_json = get_responses(users_list)
+#
+# # get non-users (in order to get the market later by adding to 'users')
+# nonusers_json = get_responses(nonusers_list)
+#
+# # non-users, together with users make up the market
+# market_json = users_json + nonusers_json
 
 
 
@@ -65,15 +65,15 @@ market_json = users_json + nonusers_json
 
 # just open the already pulled data
 
-with open('users_json.pkl', 'wb') as f:
-    pickle.dump(users_json, f)
-    pickle.dump(nonusers_json, f)
-    pickle.dump(market_json, f)
+# with open('users_json.pkl', 'wb') as f:
+#     pickle.dump(users_json, f)
+#     pickle.dump(nonusers_json, f)
+#     pickle.dump(market_json, f)
 
-# with open('users_json.pkl', 'rb') as f:
-#     users_json = pickle.load(f)
-#     nonusers_json = pickle.load(f)
-#     market_json = pickle.load(f)
+with open('users_json.pkl', 'rb') as f:
+    users_json = pickle.load(f)
+    nonusers_json = pickle.load(f)
+    market_json = pickle.load(f)
 
 
 
