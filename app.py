@@ -118,20 +118,23 @@ app = JupyterDash(__name__, external_stylesheets=[dbc.themes.FLATLY])
 server=app.server
 
 app.layout = dbc.Container([
-    dbc.Row(dbc.Col(html.H3('Chainlink TVL using DeFiLlama API', className='text-center text-primary, mb-3'))),
+    dbc.Row(dbc.Col(html.H3('Chainlink TVL using DeFiLlama API',
+                            className='text-center text-primary, mb-3',
+                            style={'padding': 30}))),
 
     dbc.Row([html.H5(
         'Note, plotly graphs are interactive, i.e. have the functionality to zoom in on the area of interest by selecting it.',
-        className='text-center text-primary, mb-3')]),
+        className='text-center text-primary, mb-3',
+        style={"margin-bottom": "30px"})]),
 
 dbc.Row([dcc.Markdown('''
     Why might we want to look at TVL? Popularized by the DeFi Pulse and the Concourse Open Community that developed other DeFi public services, TVL used to represent protocol growth and / or value. It gained traction as it captured something most smart contracts and networks in a very intricate system had in common: collateral. 
 
-    As yield farming and liquidity mining took off, thanks to opportunities in incentive design, we have to take into account some nuances of TVL calculations if we were to make comparisons using it. For example, a big one is double counting, see (this twitter thread)[https://twitter.com/sikiriki12/status/1295089928901140481?s=20] for more info. The other ones are the direction of locking for multichain token migration, and, similarly, “sovereignty” over a native asset of one chain locked on another chain (more no these (here)[https://github.com/DefiLlama/DefiLlama-Adapters/pull/60#issuecomment-807045050])
+    As yield farming and liquidity mining took off, thanks to opportunities in incentive design, we have to take into account some nuances of TVL calculations if we were to make comparisons using it. For example, a big one is double counting, see [this twitter thread](https://twitter.com/sikiriki12/status/1295089928901140481?s=20) for more info. The other ones are the direction of locking for multichain token migration, and, similarly, “sovereignty” over a native asset of one chain locked on another chain (more no these [here](https://github.com/DefiLlama/DefiLlama-Adapters/pull/60#issuecomment-807045050)
 
-    DeFi Llama, that is used here, considers any asset that is held in one of the protocol's contracts can be considered as part of TVL, with two exceptions (source https://docs.llama.fi/list-your-project/what-to-include-as-tvl ):
-        * Assets on pool2, that is, money that is providing liquidity to an AMM pool where one of the tokens is from the protocol (except on some cases where those assets are performing an active function such as being used as collateral).
-        * Non-crypto assets which are external to the blockchain, such as bonds or fiat currency.  
+    DeFi Llama, that is used here, considers any asset that is held in one of the protocol's contracts can be considered as part of TVL, with two exceptions [source](https://docs.llama.fi/list-your-project/what-to-include-as-tvl):
+    * Assets on pool2, that is, money that is providing liquidity to an AMM pool where one of the tokens is from the protocol (except on some cases where those assets are performing an active function such as being used as collateral).
+    * Non-crypto assets which are external to the blockchain, such as bonds or fiat currency.  
     ''', style={"margin-bottom": "50px"})]),
 
     dbc.Row([dcc.Graph(figure=tvl_over_time, style={'height': 550})]),
@@ -169,8 +172,6 @@ dbc.Row([dcc.Markdown('''
 
     dbc.Row([dcc.Markdown('''
     Chainlink's users hold most assets on Ethereum. 
-    
-    
     ''', style={"margin-bottom": "50px"})]),
 
 ])
