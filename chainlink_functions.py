@@ -281,8 +281,8 @@ def plot_catorchain_pergroup(df_users, df_nonusers, catorchain_string):
     # cat_percentage_inusers = get_percentage_per_catorchain(df_users, catorchain_string)
     # cat_percentage_innonusers = get_percentage_per_catorchain(df_nonusers, catorchain_string)
 
-    total_percat_inusers = df_users.groupby(catorchain_string).size()
-    total_percat_innonusers = df_nonusers.groupby(catorchain_string).size()
+    total_percat_inusers = df_users.groupby(catorchain_string)['name'].nunique()
+    total_percat_innonusers = df_nonusers.groupby(catorchain_string)['name'].nunique()
 
     import plotly.graph_objects as go
     from plotly.subplots import make_subplots

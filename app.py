@@ -1,7 +1,7 @@
 from chainlink_functions import get_names_list
 from chainlink_functions import get_responses
 
-import pickle
+import json
 import numpy as np
 import pandas as pd
 from datetime import datetime
@@ -65,15 +65,21 @@ from dash import dcc
 
 # just open the already pulled data
 
-# with open('users_json.pkl', 'wb') as f:
-#     pickle.dump(users_json, f)
-#     pickle.dump(nonusers_json, f)
-#     pickle.dump(market_json, f)
+# # Writing a JSON file
+# with open('users_json.json', 'w', encoding='utf-8') as f:
+#     json.dump(users_json, f)  # , ensure_ascii=False, indent=4)
+# with open('nonusers_json.json', 'w', encoding='utf-8') as f:
+#     json.dump(nonusers_json, f)
+# with open('market_json.json', 'w', encoding='utf-8') as f:
+#     json.dump(market_json, f)
 
-with open('users_json.pkl', 'rb') as f:
-    users_json = pickle.load(f)
-    nonusers_json = pickle.load(f)
-    market_json = pickle.load(f)
+# Reading a JSON file
+with open('users_json.json', 'r', encoding='utf-8') as f:
+    users_json = json.load(f)
+with open('nonusers_json.json', 'r', encoding='utf-8') as f:
+    nonusers_json = json.load(f)
+with open('market_json.json', 'r', encoding='utf-8') as f:
+    market_json = json.load(f)
 
 
 
