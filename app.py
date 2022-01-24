@@ -19,7 +19,7 @@ from dash import dcc
 #
 # # read in the users to use (and users not to use)
 #
-# sheet = "1ayLr5tEUzqjdSkR8n9Q_ylirk-QcXBf87xqmaNAcwYg"
+# sheet = "1lIthAnyw1mcI6FocR-gDS-sQPvyT_HLgvfuJmh07wFc"
 # sources_sheet = "Sources"
 #
 # users_col="List of Chainlink users"

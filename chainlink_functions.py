@@ -116,21 +116,6 @@ def plot_single_tvl_over_time(responses_json, user_index):
         plot_bgcolor='white'
     )
 
-    '''
-    fig.add_layout_image(
-        dict(
-            source="https://images.plot.ly/language-icons/api-home/python-logo.png",
-            xref="x",
-            yref="y",
-            x=0,
-            y=3,
-            sizex=2,
-            sizey=2,
-            sizing="stretch",
-            opacity=0.5,
-            layer="below")
-    )
-    '''
     return fig
 
 
